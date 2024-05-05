@@ -51,9 +51,6 @@ curl -sSL http://bit.ly/2ysbOFE | bash -s -- 1.4.1 1.4.1 0.4.15
 ## Errors faced : 
 - if you get permission denied error , become a super user `sudo su` then again try above cmd
 
-- If done correctly :
-
-![image](https://github.com/KRIISHSHARMA/hyperledger-fabric-installation/assets/86760658/a5d87571-b4ff-4e94-8484-d17463dda684)
 
 # Testing the fabric Network
 
