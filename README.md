@@ -1,97 +1,98 @@
-# hyperledger-fabric_Installation
+# ENV/Prerequisites
+- cURL — latest version
+- Docker — version 17.06.2-ce or greater [DOCKER INSTALLATION](https://github.com/KRIISHSHARMA/DOCKER)
+- Docker Compose — version 1.14.0 or greater
+- Golang — version 1.11.x [GOLANG INSTALLATION](https://github.com/KRIISHSHARMA/go-installation)
+- Nodejs — version 8.x (other versions are not in support yet)
+- NPM — version 5.x
+- Python 
 
-# Prerequisites
 
-1. cURL — latest version
- 
-2. Docker — version 17.06.2-ce or greater
+# Create a new sudo user
 
-3. Docker Compose — version 1.14.0 or greater
-
-4. Golang — version 1.11.x
-
-5. Nodejs — version 8.x (other versions are not in support yet)
-
-6. NPM — version 5.x
-
-7. Python 2.7
-
- * A) Add the new user “fabric”
-   
-```
+- add new user 'fabric'
+``` sh
 sudo adduser fabric
 ```
-
-* B) Add the user “fabric” to the Sudo groups
-
-```
+- Add the user “fabric” to the Sudo groups
+``` sh
 sudo usermod -aG sudo fabric
 ```
-
-* C) Login to “fabric” user
-
-```
-su fabric
+- Login to “fabric” user
+``` sh
+su  fabric
 ```
 
-* D) Test the sudo access
-
+- add the user to docker group
+``` sh
+sudo usermod -aG docker fabric
 ```
-sudo ls
-```
 
-* E) check your curl , docker, docker-compose , go , python , npm , nodejs version
+- Logout using `exit` command and log in again. Check the groups' user is part of,using `id -nG` command.
+![image](https://github.com/KRIISHSHARMA/hyperledger-fabric-installation/assets/86760658/a34b67c2-90e1-4cee-a952-d0c0265728d5)
+
+- Check Docker and Docker Compose versions / if installed properly
   
-![image](https://github.com/Riyatomar14/coding-in-advance-c/assets/143107173/b7128a19-9177-485b-b8fa-f56d89a13411)
+![image](https://github.com/KRIISHSHARMA/hyperledger-fabric-installation/assets/86760658/c31b4447-25cd-4fc4-8a0b-23b3c4a7d9b6)
 
-![Screenshot 2024-04-29 201234](https://github.com/Riyatomar14/coding-in-advance-c/assets/143107173/fefbdb3c-6697-455f-b51b-69a39191a30f)
+# Installing Samples, Binaries and Docker Images
 
-![image](https://github.com/Riyatomar14/coding-in-advance-c/assets/143107173/75b1cdd2-28b2-4994-9a64-002ae7a4b6e9)
-
-![image](https://github.com/Riyatomar14/coding-in-advance-c/assets/143107173/5e11a98c-e728-4212-91af-c71f625ff450)
-
-![image](https://github.com/Riyatomar14/coding-in-advance-c/assets/143107173/f695d81d-6e23-4a1a-997d-a6f17f68f54b)
-
-![image](https://github.com/Riyatomar14/coding-in-advance-c/assets/143107173/470f9b01-2ba6-449f-a856-b5b7a7d7b17c)
-
-# Install Samples, Binaries and Docker Images
-
-* A) Make the directory where you want to install the fabric-samples
-
-```
-mkdir Riya(in my case)
-cd Riya
-```
-
-* B) Determine the directory where you want to download the fabric samples. Open the directory in terminal and run the below command.
-
-```
+- download the latest production release.
+  
+``` sh
 curl -sSL http://bit.ly/2ysbOFE | bash -s
 ```
 
-![image](https://github.com/Riyatomar14/coding-in-advance-c/assets/143107173/fe9317f8-e371-47d7-aef2-0b2634937f81)
-
-![image](https://github.com/Riyatomar14/coding-in-advance-c/assets/143107173/f5ec76d3-6acc-4707-88bd-1e97bd14a63f)
-
-* C) Open the fabric-samples and go to the first-network.
-
-```
-cd fabric-samples/first-network
+- OR install a specific version
+``` sh
+curl -sSL http://bit.ly/2ysbOFE | bash -s -- 1.4.1 1.4.1 0.4.15
 ```
 
-![image](https://github.com/Riyatomar14/coding-in-advance-c/assets/143107173/4737db60-f792-402e-8ad6-7b33aa2cf65d)
+## Errors faced : 
+- if you get permission denied error , become a super user `sudo su` then again try above cmd
 
-![image](https://github.com/Riyatomar14/coding-in-advance-c/assets/143107173/2bba1dd0-7770-48a6-9c10-d6bb4d67da0f)
+- If done correctly :
 
+![image](https://github.com/KRIISHSHARMA/hyperledger-fabric-installation/assets/86760658/a5d87571-b4ff-4e94-8484-d17463dda684)
 
-* D) To test it, run the ```network.sh``` . It is a test script, it first set up the network with 2 organizations org1 and org2 with 2 peers each and an orderer .
+# Testing the fabric Network
 
-
+Open the fabric-samples and go to the test-network.
+``` sh
+cd fabric-samples/test-network
 ```
+- In this directory, you can find an annotated script, network.sh, that stands up a Fabric network using the Docker images on your local machine
+- From inside the test-network directory, run the following command to remove any containers or artifacts from any previous runs:
+``` sh
+./network.sh down
+```
+You can then bring up the network by issuing the following command. You will experience problems if you try to run the script from another directory:
+``` sh
 ./network.sh up
 ```
+- OR you can also bring up the network with Certificate Authorities.
+``` sh
+./network.sh up -ca
+```
 
+![image](https://github.com/KRIISHSHARMA/hyperledger-fabric-installation/assets/86760658/5d2797cf-4d68-4b02-9b1d-91ec4d11cac6)
 
-![Screenshot 2024-04-29 215224](https://github.com/Riyatomar14/coding-in-advance-c/assets/143107173/c8660b4f-2e2c-44d3-bc83-7e40898aaa97)
+# Creating a Channel 
+- Error in creating a channel (have to troubleshoot)
+``` sh
+Error: Post "https://localhost:7053/participation/v1/channels": dial tcp 127.0.0.1:7053: connect: connection refused
 
-
+Channel 'mychannel' created
+Joining org1 peer to the channel...
+Using organization 1
++ peer channel join -b ./channel-artifacts/mychannel.block
++ res=1
++ peer channel join -b ./channel-artifacts/mychannel.block
++ res=1
++ peer channel join -b ./channel-artifacts/mychannel.block
++ res=1
++ peer channel join -b ./channel-artifacts/mychannel.block
++ res=1
+Error: error getting endorser client for channel: endorser client failed to connect to localhost:7051: failed to create new connection: connection error: desc = "transport: error while dialing: dial tcp 127.0.0.1:7051: connect: connection refused"
+After 5 attempts, peer0.org1 has failed to join channel 'mychannel' 
+```
