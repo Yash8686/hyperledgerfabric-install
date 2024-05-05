@@ -29,11 +29,11 @@ sudo usermod -aG docker fabric
 ```
 
 - Logout using `exit` command and log in again. Check the groups' user is part of,using `id -nG` command.
-![image](https://github.com/KRIISHSHARMA/hyperledger-fabric-installation/assets/86760658/a34b67c2-90e1-4cee-a952-d0c0265728d5)
+![image](Capture-1.PNG)
 
 - Check Docker and Docker Compose versions / if installed properly
   
-![image](https://github.com/KRIISHSHARMA/hyperledger-fabric-installation/assets/86760658/c31b4447-25cd-4fc4-8a0b-23b3c4a7d9b6)
+![image](Capture-2.PNG)
 
 # Installing Samples, Binaries and Docker Images
 
